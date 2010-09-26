@@ -22,9 +22,13 @@ Add a Markdown Helper to parse markdown using [php markdown extra](http://michel
 ####Usage
 	
 	//Controller
-	<?php var $helpers = array('Markdown');?>
+	<?php var $helpers = array('LarkUtils.Markdown');?>
 
 	//View
 	<?php 
-	echo $markdown->parse($content); 
+	echo $this->Markdown->parse("
+	#My Markdown content
+	
+	This is a paragraph
+	"); 
 	?>
