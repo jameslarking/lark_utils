@@ -13,4 +13,4 @@ Quick linking together of an ajax form and index table for a record with a hasMa
 Quickly add filters to a cakephp pagination page.
 
 ####Todo
--search box
+-	search box
