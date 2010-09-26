@@ -1,0 +1,47 @@
+<?php
+
+//$paginator->options(array('url' => $this->passedArgs));
+
+
+class FilterHelper extends AppHelper{
+	var $helpers=array("Form", "Javascript");
+	var $js;
+	var $filteritems=array();
+	
+	
+	function add($name,$options){
+		$this->filteritems[]=$name;
+		$this->js.="$('#filter_".$name."').change(function(){do_filter();});";
+		return $this->Form->select($name, $options, (isset($this->params['named'][$name])?$this->params['named'][$name]:""), array(
+				"id"=>"filter_".$name),array(""=>"Filter by ".$name)
+		);
+	}
+	function search($name="search"){
+		$this->filteritems[]=$name;
+		echo $this->Form->input($name,array("value"=>(isset($this->params['named'][$name])?$this->params['named'][$name]:""), "div"=>array("id"=>$name."Div")));
+		echo $this->Form->button("search");
+		//$this->js.="$('#".$name."').change(function(){do_filter();});";
+	}
+	function js(){
+		$baseurl="/".$this->params['controller']."/".$this->params['action'];
+		foreach($this->params['pass'] as $k=>$i){
+			$baseurl.="/".$i;	
+		}
+		foreach($this->params['named'] as $k=>$i){
+			if(!in_array($k,$this->filteritems)) $baseurl.="/".$k.":".$i;	
+		}
+		$js="$(document).ready(function(){".$this->js."});
+		function do_filter(){
+			var url='".$baseurl."';";
+			foreach($this->filteritems as $k){
+			$js.="
+			url+='/".$k.":' + $('#filter_".$k."').val();";
+			}
+			$js.="
+			location.href=url;
+		}
+		";
+		return $this->Javascript->codeBlock($js);
+	}
+}
+?>
