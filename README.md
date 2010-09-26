@@ -14,3 +14,17 @@ Quickly add filters to a cakephp pagination page.
 
 ####Todo
 -	search box
+
+##Markdown
+
+Add a Markdown Helper to parse markdown using [php markdown extra](http://michelf.com/projects/php-markdown/extra/). Helper code taken from [http://bakery.cakephp.org/articles/view/baking-with-markdown-and-dp-syntaxhighlighter] but just put here for easy reuse
+
+####Usage
+	
+	//Controller
+	<?php var $helpers = array('Markdown');?>
+
+	//View
+	<?php 
+	echo $markdown->parse($content); 
+	?>
