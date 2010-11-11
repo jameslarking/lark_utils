@@ -12,9 +12,15 @@ Quick linking together of an ajax form and index table for a record with a hasMa
 
 Quickly add filters to a cakephp pagination page.
 
-####Todo
--	search box
+###Usage
+	//controller
+	<?php var $helpers = array('LarkUtils.Filter');?>
 
+	//View
+	$this->Filter->add($name="myName", $options=array(1=>"My Test Option", 2=>"My Second Option");
+	$this->Filter->search();
+	$this->Filter->js($baseurl=null);
+	?>
 ##Markdown
 
 Add a Markdown Helper to parse markdown using [php markdown extra](http://michelf.com/projects/php-markdown/extra/). Helper code taken from [the bakery](http://bakery.cakephp.org/articles/view/baking-with-markdown-and-dp-syntaxhighlighter) but just put here for easy reuse
