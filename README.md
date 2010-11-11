@@ -17,9 +17,9 @@ Quickly add filters to a cakephp pagination page.
 	<?php var $helpers = array('LarkUtils.Filter');?>
 
 	//View
-	$this->Filter->add($name="myName", $options=array(1=>"My Test Option", 2=>"My Second Option");
-	$this->Filter->search();
-	$this->Filter->js($baseurl=null);
+	echo $this->Filter->add($name="myName", $options=array(1=>"My Test Option", 2=>"My Second Option");
+	echo $this->Filter->search();
+	echo $this->Filter->js($baseurl=null);
 	?>
 ##Markdown
 
