@@ -18,14 +18,16 @@ class FilterHelper extends AppHelper{
 	}
 	function search($name="search"){
 		$this->filteritems[]=$name;
-		echo $this->Form->input($name,array("value"=>(isset($this->params['named'][$name])?$this->params['named'][$name]:""), "div"=>array("id"=>$name."Div")));
-		echo $this->Form->button("search");
-		//$this->js.="$('#".$name."').change(function(){do_filter();});";
+		echo $this->Form->input("filter_".$name,array("label"=>Inflector::humanize($name), "value"=>(isset($this->params['named'][$name])?$this->params['named'][$name]:""), "div"=>array("id"=>$name."Div")));
+		echo $this->Form->button("Search",array("id"=>"filter_".$name."_button"));
+		$this->js.="$('#filter_".$name."_button').click(function(){do_filter();});";
 	}
-	function js(){
-		$baseurl="/".$this->params['controller']."/".$this->params['action'];
-		foreach($this->params['pass'] as $k=>$i){
-			$baseurl.="/".$i;	
+	function js($baseurl=null){
+		if(!$baseurl){
+			$baseurl="/".$this->params['controller']."/".$this->params['action'];
+			foreach($this->params['pass'] as $k=>$i){
+				$baseurl.="/".$i;	
+			}
 		}
 		foreach($this->params['named'] as $k=>$i){
 			if(!in_array($k,$this->filteritems)) $baseurl.="/".$k.":".$i;	
