@@ -9,11 +9,14 @@ class FilterHelper extends AppHelper{
 	var $filteritems=array();
 	
 	
-	function add($name,$options){
+	function add($name,$options,$attributes=array()){
+		if(!$attributes){
+			$attributes=array("empty"=>"Filter by ".$name);
+		}
 		$this->filteritems[]=$name;
 		$this->js.="$('#filter_".$name."').change(function(){do_filter();});";
 		return $this->Form->select($name, $options, (isset($this->params['named'][$name])?$this->params['named'][$name]:""), array(
-				"id"=>"filter_".$name),array(""=>"Filter by ".$name)
+				"id"=>"filter_".$name), $attributes
 		);
 	}
 	function search($name="search"){
