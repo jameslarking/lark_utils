@@ -24,7 +24,9 @@ class FilterHelper extends AppHelper{
 	function search($name="search"){
 		$this->filteritems[]=$name;
 		echo $this->Form->input("filter_".$name,array("label"=>Inflector::humanize($name), "value"=>(isset($this->params['named'][$name])?$this->params['named'][$name]:""), "div"=>array("id"=>$name."Div")));
-echo $this->Form->input("Search",array("type"=>"submit", "id"=>"filter_".$name."_button"));
+		echo "<div id='filter_".$name."_button_div'>";
+		echo $this->Form->button("Search",array("id"=>"filter_".$name."_button"));
+		echo "</div>";
 		$this->js.="$('#filter_".$name."_button').click(function(){do_filter();});";
 		$this->js.="$('#filter_".$name."').keyup(function(event){
 			if(event.keyCode==13) do_filter();
