@@ -10,20 +10,27 @@ class FilterHelper extends AppHelper{
 	
 	
 	function add($name,$options,$attributes=array()){
-		if(!$attributes){
-			$attributes=array("empty"=>"Filter by ".$name);
+		if(!isset($attributes['empty'])){
+			$attributes=array("empty"=>"Filter by ".Inflector::humanize($name));	
+		}
+		if(!isset($attributes['id'])){
+			$attributes['id']="filter_".$name;		
 		}
 		$this->filteritems[]=$name;
 		$this->js.="$('#filter_".$name."').change(function(){do_filter();});";
-		return $this->Form->select($name, $options, (isset($this->params['named'][$name])?$this->params['named'][$name]:""), array(
-				"id"=>"filter_".$name), $attributes
+		return $this->Form->select($name, $options, (isset($this->params['named'][$name])?$this->params['named'][$name]:""), $attributes
 		);
 	}
 	function search($name="search"){
 		$this->filteritems[]=$name;
 		echo $this->Form->input("filter_".$name,array("label"=>Inflector::humanize($name), "value"=>(isset($this->params['named'][$name])?$this->params['named'][$name]:""), "div"=>array("id"=>$name."Div")));
+		echo "<div id='filter_".$name."_button_div'>";
 		echo $this->Form->button("Search",array("id"=>"filter_".$name."_button"));
+		echo "</div>";
 		$this->js.="$('#filter_".$name."_button').click(function(){do_filter();});";
+		$this->js.="$('#filter_".$name."').keyup(function(event){
+			if(event.keyCode==13) do_filter();
+		});";
 	}
 	function js($baseurl=null){
 		if(!$baseurl){
