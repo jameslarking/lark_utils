@@ -10,7 +10,7 @@ Quick linking together of an ajax form and index table for a record with a hasMa
 
 ##Filter
 
-Quickly add filters to a cakephp pagination page.
+Quickly add filters and searches to a cakephp pagination page.
 
 ###Usage
 	//controller
