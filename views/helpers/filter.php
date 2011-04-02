@@ -1,8 +1,5 @@
 <?php
-
 //$paginator->options(array('url' => $this->passedArgs));
-
-
 class FilterHelper extends AppHelper{
 	var $helpers=array("Form", "Javascript");
 	var $js;
@@ -34,13 +31,17 @@ class FilterHelper extends AppHelper{
 	}
 	function js($baseurl=null){
 		if(!$baseurl){
-			$baseurl="/".$this->params['controller']."/".$this->params['action'];
+			if(!empty($this->params['prefix'])){
+				$baseurl=DS.$this->params['prefix'].DS.$this->params['controller'].DS.str_replace($this->params['prefix']."_","",$this->params['action']);
+			}else{
+				$baseurl=DS.$this->params['controller'].DS.$this->params['action'];
+			}
 			foreach($this->params['pass'] as $k=>$i){
 				$baseurl.="/".$i;	
 			}
 		}
 		foreach($this->params['named'] as $k=>$i){
-			if(!in_array($k,$this->filteritems)) $baseurl.="/".$k.":".$i;	
+			if(!in_array($k,$this->filteritems)) $baseurl.=DS.$k.":".$i;	
 		}
 		$js="$(document).ready(function(){".$this->js."});
 		function do_filter(){
@@ -56,4 +57,3 @@ class FilterHelper extends AppHelper{
 		return $this->Javascript->codeBlock($js,array("inline"=>false));
 	}
 }
-?>
