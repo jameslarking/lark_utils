@@ -53,7 +53,7 @@ class FilterHelper extends AppHelper{
 			location.href=url;
 		}
 		";
-		return $this->Javascript->codeBlock($js);
+		return $this->Javascript->codeBlock($js,array("inline"=>false));
 	}
 }
 ?>
