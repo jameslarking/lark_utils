@@ -9,7 +9,7 @@ class SitemateComponent extends Object{
 			"file"=>"@".$file,
 			"apikey"=>Configure::read("sitemate.apikey"),
 			"path"=>$path,
-			"meta"=>$meta
+			"meta"=>json_encode($meta)
 		)); 
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$return=curl_exec($ch);
