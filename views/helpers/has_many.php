@@ -19,7 +19,7 @@ class HasManyHelper extends AppHelper{
 		
 	}
 	function addForm(){
-		if($this->options['includeJqForm'])	echo $this->Html->script("/has_many/js/jquery.form.js",array("inline"=>false));
+		if($this->options['includeJqForm'])	echo $this->Html->script("/lark_utils/js/form/jquery.form.js",array("inline"=>false));
 		echo $this->Javascript->codeBlock("
 			$(document).ready(function(){
 				$('#".$this->options['formDivId']."').load('".$this->options['addURL']."', {ajax:true},function(){
@@ -35,7 +35,7 @@ class HasManyHelper extends AppHelper{
 					$('#".$this->options['indexDivId']."').load('".$this->options['indexURL']."', {ajax:true});
 				});
 			}
-		");
+		",array("inline"=>false));
 	}
 	function setDefaultOptions(){
 		foreach($this->defaultOptions as $option=>$value){
