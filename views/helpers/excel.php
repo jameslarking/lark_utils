@@ -1,5 +1,5 @@
 <?php 
-require_once(APP."plugins".DS."excel".DS."vendors".DS."PHPExcel".DS."Classes".DS."PHPExcel.php");
+require_once(APP."plugins".DS."lark_utils".DS."vendors".DS."PHPExcel".DS."Classes".DS."PHPExcel.php");
 
 class ExcelHelper extends AppHelper{
 	var $xls;
