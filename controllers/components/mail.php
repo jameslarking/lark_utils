@@ -14,7 +14,9 @@ class MailComponent extends EmailComponent{
       require_once 'AWSSDKforPHP/sdk.class.php';
       $ses = new AmazonSES(); 
       $destination = array( 
-         'ToAddresses' => explode(',', $this->to) 
+         'ToAddresses' => explode(',', $this->to),
+         'CcAddresses' =>  $this->cc,
+         'BccAddresses' => $this->bcc 
       ); 
       $message = array( 
          'Subject' => array( 
