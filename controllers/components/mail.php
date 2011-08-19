@@ -11,11 +11,11 @@ class MailComponent extends EmailComponent{
 	}
     
    function _aws_ses() { 
-      require_once 'AWSSDKforPHP/sdk.class.php';
+      require_once APP.'plugins/lark_utils/vendors/awssdk/sdk.class.php';
       $ses = new AmazonSES(); 
       $destination = array( 
-         'ToAddresses' => explode(',', $this->to),
-         'CcAddresses' =>  $this->cc,
+         'ToAddresses' => explode(',', $this->to) ,
+         'CcAddresses' => $this->cc ,
          'BccAddresses' => $this->bcc 
       ); 
       $message = array( 
@@ -34,8 +34,9 @@ class MailComponent extends EmailComponent{
             'Data' => $this->htmlMessage 
          ); 
       } 
-       
-      $response = $ses->send_email($this->from, $destination, $message); 
+      $opt=array();
+      if(isset($this->replyTo)) $opt['ReplyToAddresses']=$this->replyTo;
+      $response = $ses->send_email($this->from, $destination, $message, $opt); 
       $ok = $response->isOK(); 
       if(!$ok) { 
          $this->log('Error sending email from AWS SES: '.json_encode($response->body). " Message was: ".$response->header['x-aws-body'], 'error'); 
